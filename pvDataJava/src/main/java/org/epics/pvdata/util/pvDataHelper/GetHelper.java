@@ -50,7 +50,7 @@ public class GetHelper
      * Copy out the entire array of doubles into a Vector of Double.
      *
      * @param pv the PVDoubleArray to copy to
-     * @return the Vector containg the values from the specified array
+     * @return the Vector containing the values from the specified array
      */
     public static Vector<Double> getDoubleVector( PVDoubleArray pv )
     {
@@ -70,7 +70,7 @@ public class GetHelper
      * Copy out the entire array of longs into a Vector of Long.
      *
      * @param pv the PVLongArray to copy to
-     * @return the Vector containg the values from the specified array
+     * @return the Vector containing the values from the specified array
      */
     public static Vector<Long> getLongVector( PVLongArray pv )
     {
@@ -90,7 +90,7 @@ public class GetHelper
      * Copy out the entire array of bytes into a Vector of Byte.
      *
      * @param pv the PVByteArray to copy to
-     * @return the Vector containg the values from the specified array
+     * @return the Vector containing the values from the specified array
      */
     public static Vector<Byte> getByteVector( PVByteArray pv )
     {
@@ -110,7 +110,7 @@ public class GetHelper
      * Copy out the entire array of strings into a Vector of String.
      *
      * @param pv the PVStringArray to copy to
-     * @return the Vector containg the values from the specified array
+     * @return the Vector containing the values from the specified array
      */
     public static Vector<String> getStringVector( PVStringArray pv )
     {
@@ -138,7 +138,7 @@ public class GetHelper
      * Copy out the entire array of booleans into a Vector of Boolean.
      *
      * @param pv the PVBooleanArray to copy to
-     * @return the Vector containg the values from the specified array
+     * @return the Vector containing the values from the specified array
      */
     public static Vector<Boolean> getBooleanVector( PVBooleanArray pv )
     {

@@ -14,7 +14,7 @@ package org.epics.pvdata.pv;
  * Numeric conversions are between types:
  * pvByte, pvShort, pvInt,
  * pvLong, pvFloat, or pvDouble.</p>
- * 
+ *
  * <p>getString converts any supported type to a String.
  * Code that implements a PVField interface can implement
  * method toString by calling this method.</p>
@@ -125,7 +125,7 @@ public interface Convert {
     void copy(PVField from,PVField to);
 
     /**
-     * Are from and to the instrospection interfaces for valid arguments for copyScalar.
+     * Are from and to the introspection interfaces for valid arguments for copyScalar.
      * false will be returned if either argument is not a scalar as defined by Type.isScalar().
      * If both are scalars the return value is true if any of the following are true:
      * <ul>
@@ -173,7 +173,7 @@ public interface Convert {
     int copyScalarArray(PVScalarArray from, int offset, PVScalarArray to, int toOffset, int length);
 
     /**
-     * Are from and to the instrospection interfaces for valid arguments for copyStructure.
+     * Are from and to the introspection interfaces for valid arguments for copyStructure.
      * They are only compatible if they have the same Structure description.
      *
      * @param from the introspection interface for a source structure
@@ -199,7 +199,7 @@ public interface Convert {
     void copyStructure(PVStructure from, PVStructure to);
 
     /**
-     * Are from and to the instrospection interfaces for valid arguments for copyUnion.
+     * Are from and to the introspection interfaces for valid arguments for copyUnion.
      * They are only compatible if they have the same Union description.
      *
      * @param from the introspection interface for the source union
@@ -217,7 +217,7 @@ public interface Convert {
      */
     void copyUnion(PVUnion from, PVUnion to);
     /**
-     * Are from and to the instrospection interfaces for valid arguments for copyStructureArray.
+     * Are from and to the introspection interfaces for valid arguments for copyStructureArray.
      *
      * @param from the introspection interface for a source array
      * @param to the introspection interface for a destination array
@@ -226,7 +226,7 @@ public interface Convert {
     boolean isCopyStructureArrayCompatible(StructureArray from, StructureArray to);
 
     /**
-     * Are from and to the instrospection interfaces for valid arguments for copyUnionArray.
+     * Are from and to the introspection interfaces for valid arguments for copyUnionArray.
      *
      * @param from the from UnionArray
      * @param to the to UnionArray

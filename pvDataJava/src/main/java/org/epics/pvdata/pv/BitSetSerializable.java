@@ -11,12 +11,12 @@ import org.epics.pvdata.misc.BitSet;
 
 
 /**
- * Base interface for partital serializaion.
+ * Base interface for partial serialization.
  * @author mse
  *
  */
 public interface BitSetSerializable {
-    
+
     /**
      * Serialize field into the given buffer.
      *

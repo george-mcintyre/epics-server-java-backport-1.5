@@ -217,7 +217,7 @@ public class LinkedListTest extends TestCase {
         System.out.println("diff " + diff);
         diff = diff/1000.0; // convert from milliseconds to seconds
         diff = diff/ntimes; // seconds per outer loop
-        diff = diff*1e6; // converty to microseconds
+        diff = diff*1e6; // convert to microseconds
         System.out.println("time per iteration " + diff + " microseconds");
         diff = diff/(numNodes*2); // convert to per addTail/removeHead
         System.out.println("time per addTail/removeHead " + diff + " microseconds");
@@ -249,7 +249,7 @@ public class LinkedListTest extends TestCase {
         System.out.println("diff " + diff);
         diff = diff/1000.0; // convert from milliseconds to seconds
         diff = diff/ntimes; // seconds per outer loop
-        diff = diff*1e6; // converty to microseconds
+        diff = diff*1e6; // convert to microseconds
         System.out.println("time per iteration " + diff + " microseconds");
         diff = diff/(numNodes*2); // convert to per addTail/removeHead
         System.out.println("time per addTail/removeHead " + diff + " microseconds");
@@ -277,7 +277,7 @@ public class LinkedListTest extends TestCase {
         System.out.println("diff " + diff);
         diff = diff/1000.0; // convert from milliseconds to seconds
         diff = diff/ntimes; // seconds per outer loop
-        diff = diff*1e6; // converty to microseconds
+        diff = diff*1e6; // convert to microseconds
         System.out.println("time per iteration " + diff + " microseconds");
         diff = diff/(numNodes*2); // convert to per addTail/removeHead
         System.out.println("time per addTail/removeHead " + diff + " microseconds");
@@ -310,7 +310,7 @@ public class LinkedListTest extends TestCase {
         System.out.println("diff " + diff);
         diff = diff/1000.0; // convert from milliseconds to seconds
         diff = diff/ntimes; // seconds per outer loop
-        diff = diff*1e6; // converty to microseconds
+        diff = diff*1e6; // convert to microseconds
         System.out.println("time per iteration " + diff + " microseconds");
         diff = diff/(numNodes*2); // convert to per addTail/removeHead
         System.out.println("time per addTail/removeHead " + diff + " microseconds");

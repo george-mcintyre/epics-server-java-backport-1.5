@@ -22,7 +22,7 @@ public interface HasDisplay
      * Will return false if there is no display field.
      *
      * @param pvDisplay the PVDisplay that will be attached
-     * @return true if the operation was successfull, otherwise false
+     * @return true if the operation was successful, otherwise false
      */
     public boolean attachDisplay(PVDisplay pvDisplay);
 

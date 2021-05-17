@@ -22,7 +22,7 @@ public interface HasAlarm
       * Will return false if there is no alarm field.
       *
       * @param pvAlarm the PVAlarm to be attached
-      * @return true if the operation was successfull, otherwise false
+      * @return true if the operation was successful, otherwise false
       */
     public boolean attachAlarm(PVAlarm pvAlarm);
 

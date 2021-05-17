@@ -22,7 +22,7 @@ public interface HasTimeStamp
      * Will return false if there is no time stamp field.
      *
      * @param pvTimeStamp the PVTimeStamp that will be attached
-     * @return true if the operation was successfull, otherwise false
+     * @return true if the operation was successful, otherwise false
      */
     public boolean attachTimeStamp(PVTimeStamp pvTimeStamp);
 

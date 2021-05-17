@@ -80,7 +80,7 @@ public class InetAddressUtilTest extends TestCase {
     public void testGetSocketAddressList() {
         assertEquals(0, InetAddressUtil.getSocketAddressList("", 0).length);
 
-        final InetSocketAddress[] expectedAddreses =
+        final InetSocketAddress[] expectedAddresses =
                 new InetSocketAddress[]{
                         new InetSocketAddress("192.168.0.12", 7064),
                         new InetSocketAddress("192.168.0.13", 8064),
@@ -88,13 +88,13 @@ public class InetAddressUtilTest extends TestCase {
 
         InetSocketAddress[] list = InetAddressUtil.getSocketAddressList("192.168.0.12", 7064);
         assertEquals(1, list.length);
-        assertEquals(expectedAddreses[0], list[0]);
+        assertEquals(expectedAddresses[0], list[0]);
 
 
         list = InetAddressUtil.getSocketAddressList("192.168.0.12 192.168.0.13:8064", 7064);
         assertEquals(2, list.length);
-        assertEquals(expectedAddreses[0], list[0]);
-        assertEquals(expectedAddreses[1], list[1]);
+        assertEquals(expectedAddresses[0], list[0]);
+        assertEquals(expectedAddresses[1], list[1]);
 
         final InetSocketAddress[] appendList =
                 new InetSocketAddress[]{
@@ -104,8 +104,8 @@ public class InetAddressUtilTest extends TestCase {
 
         list = InetAddressUtil.getSocketAddressList("192.168.0.12 192.168.0.13:8064", 7064, appendList);
         assertEquals(4, list.length);
-        assertEquals(expectedAddreses[0], list[0]);
-        assertEquals(expectedAddreses[1], list[1]);
+        assertEquals(expectedAddresses[0], list[0]);
+        assertEquals(expectedAddresses[1], list[1]);
         assertEquals(appendList[0], list[2]);
         assertEquals(appendList[1], list[3]);
     }

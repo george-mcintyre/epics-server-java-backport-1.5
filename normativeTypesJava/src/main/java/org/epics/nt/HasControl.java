@@ -22,7 +22,7 @@ public interface HasControl
      * Will return false if there is no control field.
      *
      * @param pvControl the PVControl to be attached
-     * @return true if the operation was successfull, otherwise false
+     * @return true if the operation was successful, otherwise false
      */
     public boolean attachControl(PVControl pvControl);
 
