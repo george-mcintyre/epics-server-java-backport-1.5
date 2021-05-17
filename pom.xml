@@ -1,0 +1,222 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.epics</groupId>
+    <artifactId>epics-parent</artifactId>
+    <version>7.0.8-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>EPICS Core Server BackPort 1.5 Build</name>
+    <url>https://github.com/george-mcintyre/epics-server-java-backport-1.5</url>
+    <description>Parent project for the EPICS Core Server BackPort 1.5 Libraries.
+        This is a special version of Epics Core Libraries that runs in JDK 1.5 VMs
+    </description>
+
+    <properties>
+        <!-- Matching versions of Core modules -->
+        <epics-util.version>1.0.5-SNAPSHOT</epics-util.version>
+        <epics-pvaccess.version>5.1.7-SNAPSHOT</epics-pvaccess.version>
+        <epics-pvdata.version>6.1.7-SNAPSHOT</epics-pvdata.version>
+        <epics-ntypes.version>0.3.7-SNAPSHOT</epics-ntypes.version>
+        <epics-vtype.version>1.0.5-SNAPSHOT</epics-vtype.version>
+
+        <jca.version>2.3.6</jca.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <asm.version>7.0</asm.version>
+
+        <!-- Explanation for maven-compiler-plugin configuration.
+             The target VM is 1.5 but we can compile the code using any version of the java compiler we want
+             as long as we specify the source code version we are checking conformance to and the byte code (target)
+             we want to output code as.  We use the maven-compiler-plugin to do the compilation
+             as it allows us to set both source and target JDKs.  However there are some limitations
+             based on the version of maven-compiler-plugin we use.  Because of those limitations we settle on
+             using ONLY version 3.5.1 for the backport-1.5.
+                3.7.0 original pre-backport-1.5 setting
+                3.6.2+ requires source and target Java Version to be 7 or greater
+                3.5.1 is the highest version that allows source and target java versions to be less than 7
+                2.0.2 first version of maven-compiler-plugin -->
+        <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+        <maven.compiler.source>1.5</maven.compiler.source>
+        <maven.compiler.target>1.5</maven.compiler.target>
+        <maven.compiler.forceJavacCompilerUse>true</maven.compiler.forceJavacCompilerUse>
+        <maven-bundle-plugin.version>5.1.1</maven-bundle-plugin.version>
+    </properties>
+
+    <modules>
+        <module>epics-util</module>
+        <module>pvAccessJava</module>
+        <module>pvDataJava</module>
+        <module>normativeTypesJava</module>
+        <module>epics-vtype</module>
+    </modules>
+
+    <organization>
+        <name>EPICS</name>
+        <url>https://epics.anl.gov/</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>The MIT License</name>
+            <url>https://tldrlegal.com/license/mit-license</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:https://github.com/george-mcintyre/epics-server-java-backport-1.5.git</connection>
+        <developerConnection>scm:git:https://github.com/george-mcintyre/epics-server-java-backport-1.5.git
+        </developerConnection>
+        <url>https://github.com/george-mcintyre/epics-server-java-backport-1.5</url>
+        <tag>7.0.7</tag>
+    </scm>
+
+    <!-- Project developers (alphabetically) taken from SCM logs -->
+    <developers>
+        <developer>
+            <name>Michael Davidsaver</name>
+            <email>mdavidsaver@gmail.com</email>
+            <organization>Osprey DCS</organization>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Dave Hickin</name>
+            <email>david.hickin@diamond.ac.uk</email>
+            <organization>Diamond Light Source</organization>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Marty Kraimer</name>
+            <email>mrkraimer@comcast.net</email>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Ralph Lange</name>
+            <email>ralph.lange@gmx.de</email>
+            <organization>ITER Organization</organization>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>George McIntyre</name>
+            <email>sly@slac.stanford.edu</email>
+            <organization>SLAC</organization>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Kunal Shroff</name>
+            <email>kunalshroff9@gmail.com</email>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Matej Sekoranja</name>
+            <email>matej.sekoranja@cosylab.com</email>
+            <organization>Cosylab</organization>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Gregory White</name>
+            <email>greg@slac.stanford.edu</email>
+            <organization>SLAC</organization>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Georg Weiss</name>
+            <email>georgweiss@esss.se</email>
+            <organization>European Spallation Source</organization>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <!-- Preset dependency versions for core libraries -->
+    <dependencyManagement>
+        <dependencies>
+
+            <!-- EPICS Core Libraries -->
+            <dependency>
+                <groupId>org.epics</groupId>
+                <artifactId>epics-util</artifactId>
+                <version>${epics-util.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.epics</groupId>
+                <artifactId>epics-pvaccess</artifactId>
+                <version>${epics-pvaccess.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.epics</groupId>
+                <artifactId>epics-pvdata</artifactId>
+                <version>${epics-pvdata.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.epics</groupId>
+                <artifactId>epics-ntypes</artifactId>
+                <version>${epics-ntypes.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.epics</groupId>
+                <artifactId>jca</artifactId>
+                <version>${jca.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- Common dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+            </plugin>
+
+            <!-- include the maven compiler plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

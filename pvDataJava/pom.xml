@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.epics</groupId>
+        <artifactId>epics-parent</artifactId>
+        <version>7.0.8-SNAPSHOT</version>
+    </parent>
+
+    <name>pvDataJava</name>
+    <artifactId>epics-pvdata</artifactId>
+    <version>6.1.7-SNAPSHOT</version>
+    <url>https://github.com/george-mcintyre/epics-server-java-backport-1.5/pvDataJava</url>
+
+    <scm>
+        <url>https://github.com/george-mcintyre/epics-server-java-backport-1.5/pvDataJava</url>
+        <connection>https://github.com/george-mcintyre/epics-server-java-backport-1.5/pvDataJava</connection>
+        <developerConnection>https://github.com/george-mcintyre/epics-server-java-backport-1.5/pvDataJava
+        </developerConnection>
+        <tag>7.0.7</tag>
+    </scm>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>epics-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>1.3</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>5.1.1</version>
+                <!-- Use lower case for bundle name, as agreed upon with CS-Studio devs -->
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>org.epics.pvdata</Bundle-SymbolicName>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <!-- Explicitly declare snapshot repository -->
+    <repositories>
+        <repository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>OSS Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+    </repositories>
+</project>
