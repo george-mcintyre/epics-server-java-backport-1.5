@@ -1,9 +1,7 @@
 package org.epics.pvaccess.impl.remote.utils;
 
-import org.epics.pvaccess.server.impl.remote.ServerForwarderImpl;
 import org.epics.pvaccess.util.InetAddressUtil;
 
-import java.io.IOException;
 import java.net.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -18,17 +16,9 @@ public class PVAForwarder {
     }
 
     public static void main(String[] args) throws Throwable {
-        run(null);
-    }
-
-    public static void run(ServerForwarderImpl context) throws IOException {
-        System.out.println("Starting EPICS PVAccess Message Forwarder ...");
         System.out.println("Binding to UDP socket at port " + PVA_BROADCAST_PORT);
 
         DatagramSocket receiveSocket = new DatagramSocket(PVA_BROADCAST_PORT);
-        if ( context != null ) {
-            receiveSocket.setSoTimeout(1000); // Receive every 1 second
-        }
         InetSocketAddress mcAddress = new InetSocketAddress(getMulticastGroup(), PVA_BROADCAST_PORT);
         System.out.println("MC Group:   " + mcAddress);
 
@@ -41,18 +31,9 @@ public class PVAForwarder {
         byte[] buffer = new byte[MAX_UDP_PACKET];
         InetAddress addr = null;
 
-        System.out.println("Message Forwarder Started Successfully");
-
         do {
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-            try {
-                receiveSocket.receive(packet);
-            } catch (SocketTimeoutException e) {
-                if (context != null && !context.isRunning() ) {
-                    break;
-                }
-                continue;
-            }
+            receiveSocket.receive(packet);
             InetSocketAddress responseFrom = (InetSocketAddress) packet.getSocketAddress();
 
             if (responseFrom.getAddress().isLoopbackAddress()) {
@@ -97,7 +78,7 @@ public class PVAForwarder {
                     mcAddress.getAddress(), PVA_BROADCAST_PORT);
 
             sendSocket.send(packet);
-        } while (addr != null && (context == null || context.isRunning() ));
+        } while (addr != null);
     }
 
     /**
