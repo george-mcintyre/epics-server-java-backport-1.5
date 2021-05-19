@@ -47,8 +47,6 @@
         <module>epics-util</module>
         <module>pvAccessJava</module>
         <module>pvDataJava</module>
-        <module>normativeTypesJava</module>
-        <module>epics-vtype</module>
     </modules>
 
     <organization>
@@ -166,12 +164,6 @@
                 <groupId>org.epics</groupId>
                 <artifactId>epics-pvdata</artifactId>
                 <version>${epics-pvdata.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.epics</groupId>
-                <artifactId>epics-ntypes</artifactId>
-                <version>${epics-ntypes.version}</version>
             </dependency>
 
             <dependency>
