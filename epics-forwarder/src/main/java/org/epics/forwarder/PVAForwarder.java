@@ -38,7 +38,9 @@ public class PVAForwarder {
         byte[] buffer = new byte[MAX_UDP_PACKET];
         InetAddress addr = null;
 
-        logger.info("EPICS Request Forwarder started: " + DateTime.now().minus(startTime.getMillis()).getMillis() + " milliseconds");
+        DateTime lastCheckpoint = DateTime.now();
+        logger.info("EPICS Request Forwarder started: " + lastCheckpoint.minus(startTime.getMillis()).getMillis() + " milliseconds");
+        System.out.print(startTime.getHourOfDay() + ":" + startTime.getMinuteOfHour() + " > ");
         do {
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
             try {
@@ -59,8 +61,18 @@ public class PVAForwarder {
                 continue;
 
             final Byte qosCode = readQosCode(receiveBuffer, payloadSize);
-            if (qosCode == null)
+            if (qosCode == null) {
                 continue;
+            }
+
+            lastCheckpoint = DateTime.now();
+            long periods = lastCheckpoint.minus(startTime.getMillis()).getMillis() / (1000 * 60 * 60);
+            for (int period = 0; period < periods; period++) {
+                System.out.println();
+                startTime = startTime.plus(1000 * 60 * 60);
+                System.out.print(startTime.getHourOfDay() + ":" + startTime.getMinuteOfHour() + " > ");
+            }
+            System.out.print('.');
 
             addr = readAddress(receiveBuffer);
             final Integer port = readPort(receiveBuffer);

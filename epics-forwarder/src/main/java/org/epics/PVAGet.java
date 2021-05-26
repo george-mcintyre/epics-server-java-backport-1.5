@@ -1,4 +1,4 @@
-package org.epics.pvaccess.client.rpc.test;
+package org.epics;
 
 import org.epics.pvaccess.client.rpc.RPCClientImpl;
 import org.epics.pvaccess.server.rpc.RPCRequestException;
@@ -12,16 +12,16 @@ import org.epics.pvdata.pv.ScalarType;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RPCServiceClientExample {
+public class PVAGet {
     private final static FieldCreate fieldCreate = FieldFactory.getFieldCreate();
 
     public static void main(String[] args) {
         try {
             if (args.length < 1) {
                 throw new RuntimeException("PV not specified: usage\n" +
-                        " RPCServiceClientExample service [arg=value[,arg=value]...]\n" +
+                        " PVAGet service [arg=value[,arg=value]...]\n" +
                         "e.g. \n" +
-                        " RPCServiceClientExample AIDA:SAMPLE:DEVICE1 arg1=value");
+                        " PVAGet AIDA:SAMPLE:DEVICE1 arg1=value");
             }
             // Create a client to the service specified
             String pv = args[0];
