@@ -52,7 +52,7 @@ public class RPCServiceExample {
 
         RPCServer server = new RPCServer();
 
-        server.registerService("sum", new SumServiceImpl());
+        server.registerService("AIDA:SAMPLE:DEVICE1", new SumServiceImpl());
         // you can register as many services as you want here ...
 
         server.printInfo();

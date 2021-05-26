@@ -17,6 +17,7 @@ public class PVAForwarder {
     static {
         System.setProperty("java.net.preferIPv4Stack", "true");
     }
+
     private static final Logger logger = Logger.getLogger(PVAForwarder.class.getName());
 
     public static void main(String[] args) throws Throwable {
