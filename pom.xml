@@ -47,6 +47,7 @@
         <module>epics-util</module>
         <module>pvAccessJava</module>
         <module>pvDataJava</module>
+        <module>epics-forwarder</module>
     </modules>
 
     <organization>
@@ -171,7 +172,6 @@
                 <artifactId>jca</artifactId>
                 <version>${jca.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -197,11 +197,6 @@
         </pluginManagement>
 
         <plugins>
-            <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.2</version>
-            </plugin>
-
             <!-- include the maven compiler plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
