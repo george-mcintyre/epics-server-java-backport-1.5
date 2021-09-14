@@ -47,6 +47,7 @@
         <module>epics-util</module>
         <module>pvAccessJava</module>
         <module>pvDataJava</module>
+        <module>normativeTypesJava</module>
         <module>epics-forwarder</module>
     </modules>
 
@@ -153,6 +154,12 @@
                 <groupId>org.epics</groupId>
                 <artifactId>epics-util</artifactId>
                 <version>${epics-util.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.epics</groupId>
+                <artifactId>epics-ntypes</artifactId>
+                <version>${epics-ntypes.version}</version>
             </dependency>
 
             <dependency>
