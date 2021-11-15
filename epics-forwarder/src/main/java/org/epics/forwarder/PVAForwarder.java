@@ -21,6 +21,7 @@ public class PVAForwarder {
     private static final Logger logger = Logger.getLogger(PVAForwarder.class.getName());
 
     public static void main(String[] args) throws Throwable {
+        int requestCount = 0;
         DateTime startTime = DateTime.now();
         logger.fine("EPICS Request Forwarder starting ...");
         logger.fine("  Binding to UDP socket at port " + PVA_BROADCAST_PORT);
@@ -72,7 +73,12 @@ public class PVAForwarder {
                 startTime = startTime.plus(1000 * 60 * 60);
                 System.out.print(startTime.getHourOfDay() + ":" + startTime.getMinuteOfHour() + " > ");
             }
-            System.out.print('.');
+
+            requestCount++;
+            if ( periods != 0L ) {
+                System.out.print(requestCount +  " requests/h");
+                requestCount = 0;
+            }
 
             addr = readAddress(receiveBuffer);
             final Integer port = readPort(receiveBuffer);
