@@ -153,42 +153,41 @@ public abstract class AbstractCodec
                         // handle response
                         processApplicationMessage();
                     } finally {
-                        if (!isOpen())
-                            return;
+                        if (isOpen()) {
+                            // can be closed by now
+                            while (true) {
+                                // set position as whole message was read (in case code haven't done so)
+                                int newPosition = alignedValue(storedPosition + storedPayloadSize, PVAConstants.PVA_ALIGNMENT);
+                                // aligned buffer size ensures that there is enough space in buffer,
+                                // however data might not be fully read
 
-                        // can be closed by now
-                        while (true) {
-                            // set position as whole message was read (in case code haven't done so)
-                            int newPosition = alignedValue(storedPosition + storedPayloadSize, PVAConstants.PVA_ALIGNMENT);
-                            // aligned buffer size ensures that there is enough space in buffer,
-                            // however data might not be fully read
+                                // discard the rest of the packet
+                                if (newPosition > storedLimit) {
+                                    // processApplicationMessage() did not read up quite some buffer
 
-                            // discard the rest of the packet
-                            if (newPosition > storedLimit) {
-                                // processApplicationMessage() did not read up quite some buffer
+                                    // we only handle unused alignment bytes
+                                    int bytesNotRead = newPosition - socketBuffer.position();
+                                    if (bytesNotRead < PVAConstants.PVA_ALIGNMENT) {
+                                        // make alignment bytes as real payload to enable SPLIT
+                                        // no end-of-socket or segmented scenario can happen
+                                        // due to aligned buffer size
+                                        storedPayloadSize += bytesNotRead;
+                                        // reveal currently existing padding
+                                        socketBuffer.limit(storedLimit);
+                                        ensureData(bytesNotRead);
+                                        storedPayloadSize -= bytesNotRead;
+                                        continue;
+                                    }
 
-                                // we only handle unused alignment bytes
-                                int bytesNotRead = newPosition - socketBuffer.position();
-                                if (bytesNotRead < PVAConstants.PVA_ALIGNMENT) {
-                                    // make alignment bytes as real payload to enable SPLIT
-                                    // no end-of-socket or segmented scenario can happen
-                                    // due to aligned buffer size
-                                    storedPayloadSize += bytesNotRead;
-                                    // reveal currently existing padding
-                                    socketBuffer.limit(storedLimit);
-                                    ensureData(bytesNotRead);
-                                    storedPayloadSize -= bytesNotRead;
-                                    continue;
+                                    // TODO we do not handle this for now (maybe never)
+                                    logger.log(Level.WARNING, "unprocessed read buffer from client " + getLastReadBufferSocketAddress() + ", disconnecting...");
+                                    invalidDataStreamHandler();
+                                    throw new InvalidDataStreamException("unprocessed read buffer");
                                 }
-
-                                // TODO we do not handle this for now (maybe never)
-                                logger.log(Level.WARNING, "unprocessed read buffer from client " + getLastReadBufferSocketAddress() + ", disconnecting...");
-                                invalidDataStreamHandler();
-                                throw new InvalidDataStreamException("unprocessed read buffer");
+                                socketBuffer.limit(storedLimit);
+                                socketBuffer.position(newPosition);
+                                break;
                             }
-                            socketBuffer.limit(storedLimit);
-                            socketBuffer.position(newPosition);
-                            break;
                         }
                     }
                 }
