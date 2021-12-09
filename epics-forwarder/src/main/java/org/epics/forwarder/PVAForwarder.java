@@ -1,6 +1,9 @@
 package org.epics.forwarder;
 
 import org.epics.pvaccess.util.InetAddressUtil;
+import org.epics.pvaccess.util.configuration.Configuration;
+import org.epics.pvaccess.util.configuration.ConfigurationProvider;
+import org.epics.pvaccess.util.configuration.impl.ConfigurationFactory;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -14,6 +17,8 @@ import static org.epics.pvaccess.util.InetAddressUtil.getFirstLoopbackNIF;
 import static org.epics.pvaccess.util.InetAddressUtil.getMulticastGroup;
 
 public class PVAForwarder {
+    private final static Integer broadcastPort = getConfiguration().getPropertyAsInteger("EPICS_PVA_BROADCAST_PORT", PVA_BROADCAST_PORT);
+
     static {
         System.setProperty("java.net.preferIPv4Stack", "true");
     }
@@ -24,10 +29,10 @@ public class PVAForwarder {
         int requestCount = 0;
         DateTime startTime = DateTime.now();
         logger.fine("EPICS Request Forwarder starting ...");
-        logger.fine("  Binding to UDP socket at port " + PVA_BROADCAST_PORT);
+        logger.fine("  Binding to UDP socket at port " + broadcastPort);
 
-        DatagramSocket receiveSocket = new DatagramSocket(PVA_BROADCAST_PORT);
-        InetSocketAddress mcAddress = new InetSocketAddress(getMulticastGroup(), PVA_BROADCAST_PORT);
+        DatagramSocket receiveSocket = new DatagramSocket(broadcastPort);
+        InetSocketAddress mcAddress = new InetSocketAddress(getMulticastGroup(), broadcastPort);
         logger.fine("  Multicast Group:   " + mcAddress);
 
         NetworkInterface loNif = getFirstLoopbackNIF().getNetworkInterface();
@@ -102,7 +107,7 @@ public class PVAForwarder {
             packet = new DatagramPacket(
                     packet.getData(),
                     packet.getLength(),
-                    mcAddress.getAddress(), PVA_BROADCAST_PORT);
+                    mcAddress.getAddress(), broadcastPort);
 
             try {
                 sendSocket.send(packet);
@@ -110,6 +115,19 @@ public class PVAForwarder {
                 e.printStackTrace();
             }
         } while (true);
+    }
+
+    /**
+     * Get configuration instance.
+     *
+     * @return the configuration.
+     */
+    private static  Configuration getConfiguration() {
+        final ConfigurationProvider configurationProvider = ConfigurationFactory.getProvider();
+        Configuration config = configurationProvider.getConfiguration("pvAccess-server");
+        if (config == null)
+            config = configurationProvider.getConfiguration("system");
+        return config;
     }
 
     /**
