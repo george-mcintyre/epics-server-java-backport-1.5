@@ -17,7 +17,10 @@ import static org.epics.pvaccess.util.InetAddressUtil.getFirstLoopbackNIF;
 import static org.epics.pvaccess.util.InetAddressUtil.getMulticastGroup;
 
 public class PVAForwarder {
-    private final static Integer broadcastPort = getConfiguration().getPropertyAsInteger("EPICS_PVA_BROADCAST_PORT", PVA_BROADCAST_PORT);
+    private final static Configuration configuration = getConfiguration();
+    private final static Integer broadcastPort =
+            configuration.getPropertyAsInteger("EPICS_PVA_BROADCAST_PORT",
+                    configuration.getPropertyAsInteger("EPICS_PVAS_BROADCAST_PORT", PVA_BROADCAST_PORT));
 
     static {
         System.setProperty("java.net.preferIPv4Stack", "true");
@@ -45,7 +48,7 @@ public class PVAForwarder {
         InetAddress addr = null;
 
         DateTime lastCheckpoint = DateTime.now();
-        logger.info("EPICS Request Forwarder started on port: "+ broadcastPort + ": startup: " + lastCheckpoint.minus(startTime.getMillis()).getMillis() + " milliseconds");
+        logger.info("EPICS Request Forwarder started on port: " + broadcastPort + ": startup: " + lastCheckpoint.minus(startTime.getMillis()).getMillis() + " milliseconds");
         System.out.print(startTime.getHourOfDay() + ":" + startTime.getMinuteOfHour() + " > ");
         do {
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
@@ -80,8 +83,8 @@ public class PVAForwarder {
             }
 
             requestCount++;
-            if ( periods != 0L ) {
-                System.out.print(requestCount +  " requests/h");
+            if (periods != 0L) {
+                System.out.print(requestCount + " requests/h");
                 requestCount = 0;
             }
 
@@ -122,7 +125,7 @@ public class PVAForwarder {
      *
      * @return the configuration.
      */
-    private static  Configuration getConfiguration() {
+    private static Configuration getConfiguration() {
         final ConfigurationProvider configurationProvider = ConfigurationFactory.getProvider();
         Configuration config = configurationProvider.getConfiguration("pvAccess-server");
         if (config == null)
