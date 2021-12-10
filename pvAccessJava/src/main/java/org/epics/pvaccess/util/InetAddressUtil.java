@@ -14,6 +14,9 @@
 
 package org.epics.pvaccess.util;
 
+import org.epics.pvaccess.util.configuration.Configuration;
+import org.epics.pvaccess.util.configuration.ConfigurationProvider;
+import org.epics.pvaccess.util.configuration.impl.ConfigurationFactory;
 import org.epics.util.compat.jdk5.net.InterfaceAddress;
 import org.epics.util.compat.jdk5.net.NetworkInterface;
 
@@ -31,12 +34,17 @@ import static org.epics.pvaccess.PVAConstants.PVA_BROADCAST_PORT;
  */
 public class InetAddressUtil {
 
+    private final static Configuration configuration = getConfiguration();
+    private final static Integer broadcastPort =
+            configuration.getPropertyAsInteger("EPICS_PVA_BROADCAST_PORT",
+                    configuration.getPropertyAsInteger("EPICS_PVAS_BROADCAST_PORT", PVA_BROADCAST_PORT));
+
     private static final String HOSTNAME_KEY = "HOSTNAME";
     private static final String STRIP_HOSTNAME_KEY = "STRIP_HOSTNAME";
 
     private static final String MULTICAST_GROUP_KEY = "EPICS_PVA_MULTICAST_GROUP";
     private static final String MULTICAST_GROUP_DEFAULT = "224.0.0.128";
-    public static final InetSocketAddress MULTICAST_GROUP = new InetSocketAddress(MULTICAST_GROUP_DEFAULT, PVA_BROADCAST_PORT);
+    public static final InetSocketAddress MULTICAST_GROUP = new InetSocketAddress(MULTICAST_GROUP_DEFAULT, broadcastPort);
 
     private static final Set<NetworkInterface> MULTICAST_NIFS = new HashSet<NetworkInterface>();
     private static boolean MULTICAST_NIFS_INITIALISED = false;
@@ -399,4 +407,19 @@ public class InetAddressUtil {
 
         return InetAddress.getByName(MULTICAST_GROUP_OVERRIDE);
     }
+
+    /**
+     * Get configuration instance.
+     *
+     * @return the configuration.
+     */
+    private static Configuration getConfiguration() {
+        final ConfigurationProvider configurationProvider = ConfigurationFactory.getProvider();
+        Configuration config = configurationProvider.getConfiguration("pvAccess-server");
+        if (config == null)
+            config = configurationProvider.getConfiguration("system");
+        return config;
+    }
+
+
 }
