@@ -45,7 +45,7 @@ public class PVAForwarder {
         InetAddress addr = null;
 
         DateTime lastCheckpoint = DateTime.now();
-        logger.info("EPICS Request Forwarder started: " + lastCheckpoint.minus(startTime.getMillis()).getMillis() + " milliseconds");
+        logger.info("EPICS Request Forwarder started on port: "+ broadcastPort + ": startup: " + lastCheckpoint.minus(startTime.getMillis()).getMillis() + " milliseconds");
         System.out.print(startTime.getHourOfDay() + ":" + startTime.getMinuteOfHour() + " > ");
         do {
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
