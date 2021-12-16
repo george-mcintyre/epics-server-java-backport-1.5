@@ -43,6 +43,7 @@ public class PVAForwarder {
 
         MulticastSocket sendSocket = new MulticastSocket();
         sendSocket.setNetworkInterface(loNif);
+        sendSocket.setTimeToLive(0);        // Only deliver multicast packets locally
 
         byte[] buffer = new byte[MAX_UDP_PACKET];
         InetAddress addr = null;
