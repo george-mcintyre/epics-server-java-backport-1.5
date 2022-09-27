@@ -4,12 +4,12 @@
     <parent>
         <groupId>org.epics</groupId>
         <artifactId>epics-parent</artifactId>
-        <version>7.0.8-SNAPSHOT</version>
+        <version>7.0.8-bp</version>
     </parent>
 
     <name>pvDataJava</name>
     <artifactId>epics-pvdata</artifactId>
-    <version>6.1.7-SNAPSHOT</version>
+    <version>6.1.7-bp</version>
     <url>https://github.com/george-mcintyre/epics-server-java-backport-1.5/pvDataJava</url>
 
     <scm>

@@ -11,18 +11,18 @@ import org.epics.util.array.ArrayFloat;
  * The caller must be prepared to get/put the array in chunks.
  * The return argument is always the number of elements that were transferred.
  * It may be less than the number requested.
- * @author mrk
  *
+ * @author mrk
  */
-public interface PVFloatArray extends PVNumberArray{
+public interface PVFloatArray extends PVNumberArray {
     /**
      * Get values from a <i>PVFloatArray</i>
      * and put them into <i>float[]to</i>.
      *
      * @param offset the offset to the first element to get
      * @param length the maximum number of elements to transfer
-     * @param data the class containing the data and an offset into the data.
-     * Get sets these values. The caller must do the actual data transfer.
+     * @param data   the class containing the data and an offset into the data.
+     *               Get sets these values. The caller must do the actual data transfer.
      * @return the number of elements that can be transferred.
      * This is always less than or equal to length.
      * If the value is less then length then get should be called again.
@@ -42,16 +42,16 @@ public interface PVFloatArray extends PVNumberArray{
     /**
      * Put values into a <i>PVFloatArray</i> from <i>float[]from</i>.
      *
-     * @param offset the offset to the first element to put
-     * @param length the maximum number of elements to transfer
-     * @param from the array from which to get the data
+     * @param offset     the offset to the first element to put
+     * @param length     the maximum number of elements to transfer
+     * @param from       the array from which to get the data
      * @param fromOffset the offset into from
      * @return the number of elements transferred.
      * This is always less than or equal to length.
      * If the value is less than the length then put should be called again.
      * @throws IllegalStateException if the field is not mutable
      */
-    int put(int offset,int length, float[] from, int fromOffset);
+    int put(int offset, int length, float[] from, int fromOffset);
 
     /**
      * Share the data from caller.

@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>epics-parent</artifactId>
         <groupId>org.epics</groupId>
-        <version>7.0.8-SNAPSHOT</version>
+        <artifactId>epics-parent</artifactId>
+        <version>7.0.8-bp</version>
     </parent>
 
     <name>epics-forwarder</name>
     <artifactId>epics-forwarder</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0-bp</version>
 
     <dependencies>
         <dependency>

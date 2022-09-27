@@ -11,8 +11,8 @@ import org.epics.util.array.ArrayByte;
  * The caller must be prepared to get/put the array in chunks.
  * The return argument is always the number of elements that were transferred.
  * It may be less than the number requested.
- * @author mrk
  *
+ * @author mrk
  */
 public interface PVByteArray extends PVNumberArray {
     /**
@@ -20,8 +20,8 @@ public interface PVByteArray extends PVNumberArray {
      *
      * @param offset The offset to the first element to get
      * @param length The maximum number of elements to transfer
-     * @param data The class containing the data and an offset into the data.
-     * Get sets these values. The caller must do the actual data transfer.
+     * @param data   The class containing the data and an offset into the data.
+     *               Get sets these values. The caller must do the actual data transfer.
      * @return the number of elements that can be transferred.
      * This is always less than or equal to length.
      * If the value is less then length then get should be called again.
@@ -41,16 +41,16 @@ public interface PVByteArray extends PVNumberArray {
     /**
      * Put values into a <i>PVByteArray</i> from <i>byte[]to</i>.
      *
-     * @param offset the offset to the first element to put
-     * @param length the maximum number of elements to transfer
-     * @param from the array from which to get the data
+     * @param offset     the offset to the first element to put
+     * @param length     the maximum number of elements to transfer
+     * @param from       the array from which to get the data
      * @param fromOffset the offset into from
      * @return the number of elements transferred.
      * This is always less then length than or equal to length.
      * If the value is less than the length then put should be called again.
      * @throws IllegalStateException if the field is not mutable.
      */
-    int put(int offset,int length, byte[] from, int fromOffset);
+    int put(int offset, int length, byte[] from, int fromOffset);
 
     /**
      * Share the data from caller.

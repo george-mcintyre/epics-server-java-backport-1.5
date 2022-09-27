@@ -5,11 +5,10 @@
 package org.epics.pvdata.pv;
 
 
-
 /**
  * PVStructure interface.
- * @author mrk
  *
+ * @author mrk
  */
 public interface PVStructure extends PVField, BitSetSerializable {
     /**
@@ -47,7 +46,7 @@ public interface PVStructure extends PVField, BitSetSerializable {
      * @return the PVField or null if the offset is not part of this structure
      */
     PVField getSubField(int fieldOffset);
-    
+
     /**
      * Get the PVField subfield with name fieldName.
      * <p>fieldName is the name of the field relative to this PVStructure.
@@ -57,8 +56,8 @@ public interface PVStructure extends PVField, BitSetSerializable {
      * field starting with the highest-level subfield and descending to the leaf
      * field, e.g. current.alarm.status.
      *
-     * @param <T> the expected type of the PVField of the requested field
-     * @param c class object modeling the class T of expected type of the requested field
+     * @param <T>       the expected type of the PVField of the requested field
+     * @param c         class object modeling the class T of expected type of the requested field
      * @param fieldName the fieldName.
      * @return the PVField or null if the subfield does not exist, or the field is not of type <code>T</code>
      */
@@ -67,8 +66,8 @@ public interface PVStructure extends PVField, BitSetSerializable {
     /**
      * Get the PVField with the specified offset.
      *
-     * @param <T> the expected type of the PVField of the requested field
-     * @param c class object modeling the class T of expected type of the requested field
+     * @param <T>         the expected type of the PVField of the requested field
+     * @param c           class object modeling the class T of expected type of the requested field
      * @param fieldOffset the offset
      * @return the PVField or null if the offset is not part of this structure, or the field is not of type <code>T</code>
      */
@@ -163,16 +162,17 @@ public interface PVStructure extends PVField, BitSetSerializable {
      */
     //@Deprecated
     PVStructure getStructureField(String fieldName);
+
     /**
      * Find an array subfield with the specified fieldName and elementType.
      * <p>fieldName is the full name of the field relative to this PVStructure.
      *
-     * @param fieldName the name of the field to find
+     * @param fieldName   the name of the field to find
      * @param elementType the ScalarType of an element of the ScalarArray field
      * @return the interface if the field of the correct type is found or null otherwise
      */
     //@Deprecated
-    PVScalarArray getScalarArrayField(String fieldName,ScalarType elementType);
+    PVScalarArray getScalarArrayField(String fieldName, ScalarType elementType);
 
     /**
      * Find a structureArray subfield with the specified fieldName.
@@ -205,9 +205,9 @@ public interface PVStructure extends PVField, BitSetSerializable {
     PVUnionArray getUnionArrayField(String fieldName);
 
     /**
-     * Check if PVStructure and sub fields are valid.
+     * Check if PVStructure and sub-fields are valid.
      *
-     * @return (true,false) if (OK, problems found)
+     * @return (true, false) if (OK, problems found)
      */
     public boolean checkValid();
 }

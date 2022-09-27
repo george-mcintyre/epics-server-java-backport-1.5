@@ -68,7 +68,7 @@ public class BlockingUDPConnector implements Connector {
             } catch (IOException e) {
                 // If fail to bind to specified address then bind to any address.
                 socket = new MulticastSocket();
-                context.getLogger().warning("Failed to bind to '" + bindAddress );
+                context.getLogger().warning("Failed to bind to '" + bindAddress);
             }
 
             if (reuseSocket)
